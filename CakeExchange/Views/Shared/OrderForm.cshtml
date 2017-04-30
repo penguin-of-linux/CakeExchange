@@ -1,0 +1,32 @@
+﻿@model CakeExchange.Models.Order
+
+<div class="border order-form">
+    @using (Html.BeginForm())
+    {
+        <div>
+            <div class="form-group">
+                <label>Price:</label>
+                @Html.TextBoxFor(x => x.Price, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label>Count:</label>
+                @Html.TextBoxFor(x => x.Count, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label>Email:</label>
+                @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="button-positioner">
+            <button type="submit" name="action"
+                    value=@ViewData["orderType"]
+                    class="btn btn-success">
+                @ViewData["orderType"]
+
+                </button>
+        </div>
+    }
+</div>

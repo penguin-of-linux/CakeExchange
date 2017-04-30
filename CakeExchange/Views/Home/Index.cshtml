@@ -1,0 +1,55 @@
+﻿@using CakeExchange.Models
+
+@model Order
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <title>Index</title>
+</head>
+
+<body>
+    @Html.ValidationSummary()
+    <div class="orders-container">
+        <div class="order-container">
+            <div class="header">
+                <h1>Buy</h1>
+            </div>
+            <div class="order-form">
+                @Html.Partial("OrderForm", new ViewDataDictionary { {"orderType", OrderType.Buy} })
+            </div>
+            <div class="order-list">
+                <h3>Order for sale:</h3>
+                @Html.Partial("OrderListByType", new ViewDataDictionary { {"orderType", OrderType.Sell} })
+            </div>
+        </div>
+        <div class="order-container">
+            <div class="header">
+                <h1>Sell</h1>
+            </div>
+            <div class="order-form">
+                @Html.Partial("OrderForm", new ViewDataDictionary {{"orderType", OrderType.Sell}})
+            </div>
+            <div class="order-list">
+                <h3>Order for purchase:</h3>
+                @Html.Partial("OrderListByType", new ViewDataDictionary {{"orderType", OrderType.Buy}})
+            </div>
+        </div>
+    </div>
+
+    <div style="margin: 100px 20px">
+        <h3>History:</h3>
+        @Html.Partial("History")
+    </div>
+
+    </body>
+</html>

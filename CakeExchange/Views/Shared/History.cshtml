@@ -1,0 +1,32 @@
+﻿@using CakeExchange.Models;
+
+<table>
+    <thead>
+    <tr>
+        <td>Lead Time</td>
+        <td>Purchase Time</td>
+        <td>Sale Time</td>
+        <td>Price</td>
+        <td>Count</td>
+        <td>Purchaser Email</td>
+        <td>Seller Email</td>
+    </tr>
+    </thead>
+    
+    @using (var db = new OrderContext())
+    {
+        foreach (var historyInfo in db.History.OrderByDescending(o => o.LeadTime))
+        {
+            <tr>
+                <td>@historyInfo.LeadTime</td>
+                <td>@historyInfo.PurchaseTime</td>
+                <td>@historyInfo.SaleTime</td>
+                <td>@historyInfo.Price</td>
+                <td>@historyInfo.Count</td>
+                <td>@historyInfo.PurchaserEmail</td>
+                <td>@historyInfo.SellerEmail</td>
+            </tr>
+        }
+    }
+
+</table>

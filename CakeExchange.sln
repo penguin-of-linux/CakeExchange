@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.10
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CakeExchange", "CakeExchange\CakeExchange.csproj", "{319EACB7-79EC-4716-AD5D-B49B83A9398F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CakeExchangeTests", "CakeExchangeTests\CakeExchangeTests.csproj", "{804F0EA4-B6F0-4EA8-84EA-6B53F61E7495}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{319EACB7-79EC-4716-AD5D-B49B83A9398F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{319EACB7-79EC-4716-AD5D-B49B83A9398F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{319EACB7-79EC-4716-AD5D-B49B83A9398F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{319EACB7-79EC-4716-AD5D-B49B83A9398F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{804F0EA4-B6F0-4EA8-84EA-6B53F61E7495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{804F0EA4-B6F0-4EA8-84EA-6B53F61E7495}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{804F0EA4-B6F0-4EA8-84EA-6B53F61E7495}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{804F0EA4-B6F0-4EA8-84EA-6B53F61E7495}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

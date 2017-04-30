@@ -1,0 +1,28 @@
+﻿@using CakeExchange.Models
+
+<table>
+    <thead>
+    <tr>
+        <th>Price</th>
+        <th>Count</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+
+    @using (var db = new OrderContext())
+    {
+        var type = (OrderType) ViewData["orderType"];
+        var orders = db.Orders.Where(o => o.Type == type);
+        orders = type == OrderType.Buy ? orders.OrderByDescending(o => o.Price) : orders.OrderBy(o => o.Price);
+
+        foreach (var order in orders)
+        {
+            <tr>
+                <td>@order.Price</td>
+                <td>@order.Count</td>
+                <td>@order.Email</td>
+            </tr>
+        }
+    }
+
+</table>
