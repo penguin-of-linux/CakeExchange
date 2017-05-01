@@ -5,7 +5,7 @@ namespace CakeExchange.Models
 {
     public class OrderContext : DbContext
     {
-        public OrderContext() : base("DbConnection") { }
+        public OrderContext() : base("name=OrderContext") { }
         public OrderContext(DbConnection connection) : base(connection, true) { }
 
         public virtual DbSet<Order> Orders { get; set; }
