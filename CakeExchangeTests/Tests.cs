@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity.Validation;
 using System.Linq;
 using CakeExchange.Models;
 using Effort;
@@ -25,7 +26,7 @@ namespace CakeExchangeTests
         [TestCase(OrderType.Sell, TestName = "Add new SELL order")]
         public void AddNewOrder(OrderType orderType)
         {
-            var order = new Order(1, 1.0f, 1, "email", orderType, DateTime.Now);
+            var order = new Order(1, 1.0f, 1, "email@mail.ru", orderType, DateTime.Now);
 
             hundler.HundleNewOrder(order);
 
@@ -68,10 +69,10 @@ namespace CakeExchangeTests
             var oppositeType = GetOppositeOrderType(orderType);
             for (int i = 1; i < 4; i++)
             {
-                hundler.HundleNewOrder(new Order(i, 5.0f, 5, "email" + i, oppositeType, DateTime.Now));
+                hundler.HundleNewOrder(new Order(i, 5.0f, 5, "email@mail.ru", oppositeType, DateTime.Now));
             }
 
-            var newOrder = new Order(4, 5.0f, 15, "email4", orderType, DateTime.Now);
+            var newOrder = new Order(4, 5.0f, 15, "email@mail.ru", orderType, DateTime.Now);
             hundler.HundleNewOrder(newOrder);
 
             Assert.IsEmpty(context.Orders);
@@ -83,9 +84,9 @@ namespace CakeExchangeTests
         public void Exchange_WithDifferentPrices(OrderType orderType, float newOrderPrice, float oldOrderPrice)
         {
             var oppositeType = GetOppositeOrderType(orderType);
-            hundler.HundleNewOrder(new Order(1, oldOrderPrice, 5, "email1", oppositeType, DateTime.Now));
+            hundler.HundleNewOrder(new Order(1, oldOrderPrice, 5, "email1@mail.ru", oppositeType, DateTime.Now));
 
-            var newOrder = new Order(2, newOrderPrice, 5, "email2", orderType, DateTime.Now);
+            var newOrder = new Order(2, newOrderPrice, 5, "email2@mail.ru", orderType, DateTime.Now);
             hundler.HundleNewOrder(newOrder);
 
             Assert.IsEmpty(context.Orders);
@@ -98,13 +99,25 @@ namespace CakeExchangeTests
         public void No_Exchange_WithDifferentPrices(OrderType orderType, float newOrderPrice, float oldOrderPrice)
         {
             var oppositeType = GetOppositeOrderType(orderType);
-            hundler.HundleNewOrder(new Order(1, oldOrderPrice, 5, "email1", oppositeType, DateTime.Now));
+            hundler.HundleNewOrder(new Order(1, oldOrderPrice, 5, "email1@mail.ru", oppositeType, DateTime.Now));
 
-            var newOrder = new Order(2, newOrderPrice, 5, "email2", orderType, DateTime.Now);
+            var newOrder = new Order(2, newOrderPrice, 5, "email2@mail.ru", orderType, DateTime.Now);
             hundler.HundleNewOrder(newOrder);
 
             Assert.AreEqual(2, context.Orders.Count());
             Assert.AreEqual(0, context.History.Count());
+        }
+
+        [TestCase(-5.0f, 5, "email@mail.ru", TestName = "Wrong price")]
+        [TestCase(5.0f, -5, "email@mail.ru", TestName = "Wrong count")]
+        [TestCase(5.0f, 5, "wrong email", TestName = "Wrong email")]
+        public void NonValidFields(float price, int count, string email)
+        {
+            var wrongOrder = new Order(1, price, count, email, OrderType.Buy, DateTime.Now);
+
+            TestDelegate action = () => hundler.HundleNewOrder(wrongOrder);
+
+            Assert.Catch<DbEntityValidationException>(action);
         }
 
         private OrderType GetOppositeOrderType(OrderType orderType)
